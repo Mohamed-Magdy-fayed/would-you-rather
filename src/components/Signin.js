@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Dropdown, Image } from "semantic-ui-react"
+import { Dropdown, Image, Label } from "semantic-ui-react"
 import 'semantic-ui-css/semantic.min.css'
 import { handleSignIn } from "../actions/signin"
 import { arraying } from "../_DATA"
 import { useNavigate } from "react-router"
-import SignUp from "./SignUp"
+import { Link } from "react-router-dom"
 
 const Signin = () => {
 
@@ -13,12 +13,19 @@ const Signin = () => {
 
     const [selectedUser, setselectedUser] = useState(users[0].text)
     const [img, setimg] = useState(users[0].image.src)
+    const [password, setpassword] = useState('')
+    const [isHidden, setisHidden] = useState(false)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleSignin = (e, user) => {
         e.preventDefault()
+        if (password !== user.password) {
+            alert('Incorrect Password!')
+
+            return
+        }
         dispatch(handleSignIn(user))
             .then(() => navigate('/'))
     }
@@ -39,6 +46,30 @@ const Signin = () => {
                         }}
                     />
                 </span>
+                <input
+                    className='form-input bg-dark text-white fs-400 ff-sans-cond'
+                    type='password'
+                    name="password"
+                    value={password}
+                    onChange={(e) => {
+                        const test = /^[0-9\b]+$/
+                        if (test.test(e.target.value) || e.target.value === '') {
+                            setpassword(e.target.value)
+                        } else {
+                            setisHidden(true)
+                        }
+                        setTimeout(() => setisHidden(false), 5000)
+                    }}
+                    placeholder="Password" />
+                <div className={!isHidden ? 'hide' : ''}>
+                    <Label
+                        basic
+                        color='red'
+                        pointing
+                    >
+                        Please enter numbers only!
+                    </Label>
+                </div>
             </div>
             <div className="underline-indicators container">
                 <button
@@ -57,9 +88,13 @@ const Signin = () => {
                     }}>
                     Sign In
                 </button>
-                
             </div>
-            <SignUp />
+            <Link
+                to={'/signup'}
+                className='d-block fs-400 ff-serif bg-dark text-accent'
+            >
+                New User? Sign Up here.
+            </Link>
         </div>
     )
 }

@@ -136,6 +136,10 @@ select {
   width: 90vw;
 }
 
+.hide {
+  display: none;
+}
+
 .container {
   padding-inline: 2em;
   margin-inline: auto;

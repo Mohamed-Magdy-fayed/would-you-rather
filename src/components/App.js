@@ -10,6 +10,7 @@ import { handleGetQuestions } from '../actions/questions';
 import { Loader } from 'semantic-ui-react';
 import { useNavigate, Route, Routes } from 'react-router';
 import PollView from './PollView';
+import SignUp from './SignUp';
 
 const App = () => {
 
@@ -45,6 +46,7 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/signin' element={<Signin />} />
+              <Route path='/signup' element={<SignUp />} />
               <Route path='/new' element={<New />} />
               <Route path='/leaderboard' element={<Leaderboard />} />
               <Route path='/poll/:id' element={<PollView />} />

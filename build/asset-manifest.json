@@ -1,28 +1,29 @@
 {
   "files": {
-    "main.css": "/would-you-rather/static/css/main.19bfbbe0.chunk.css",
-    "main.js": "/would-you-rather/static/js/main.0fb8261c.chunk.js",
-    "main.js.map": "/would-you-rather/static/js/main.0fb8261c.chunk.js.map",
+    "main.css": "/would-you-rather/static/css/main.6ba05c6c.chunk.css",
+    "main.js": "/would-you-rather/static/js/main.0045aeeb.chunk.js",
+    "main.js.map": "/would-you-rather/static/js/main.0045aeeb.chunk.js.map",
     "runtime-main.js": "/would-you-rather/static/js/runtime-main.c7f60b49.js",
     "runtime-main.js.map": "/would-you-rather/static/js/runtime-main.c7f60b49.js.map",
     "static/css/2.b2214614.chunk.css": "/would-you-rather/static/css/2.b2214614.chunk.css",
-    "static/js/2.589bdb8b.chunk.js": "/would-you-rather/static/js/2.589bdb8b.chunk.js",
-    "static/js/2.589bdb8b.chunk.js.map": "/would-you-rather/static/js/2.589bdb8b.chunk.js.map",
+    "static/js/2.7fce99c0.chunk.js": "/would-you-rather/static/js/2.7fce99c0.chunk.js",
+    "static/js/2.7fce99c0.chunk.js.map": "/would-you-rather/static/js/2.7fce99c0.chunk.js.map",
     "index.html": "/would-you-rather/index.html",
     "static/css/2.b2214614.chunk.css.map": "/would-you-rather/static/css/2.b2214614.chunk.css.map",
-    "static/css/main.19bfbbe0.chunk.css.map": "/would-you-rather/static/css/main.19bfbbe0.chunk.css.map",
-    "static/js/2.589bdb8b.chunk.js.LICENSE.txt": "/would-you-rather/static/js/2.589bdb8b.chunk.js.LICENSE.txt",
+    "static/css/main.6ba05c6c.chunk.css.map": "/would-you-rather/static/css/main.6ba05c6c.chunk.css.map",
+    "static/js/2.7fce99c0.chunk.js.LICENSE.txt": "/would-you-rather/static/js/2.7fce99c0.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/would-you-rather/static/media/outline-icons.ddae9b1b.woff",
     "static/media/App.css": "/would-you-rather/static/media/icon-hamburger.5273efa7.svg",
     "static/media/john.103fc5ba.jpg": "/would-you-rather/static/media/john.103fc5ba.jpg",
+    "static/media/profile.9f4aa540.png": "/would-you-rather/static/media/profile.9f4aa540.png",
     "static/media/sara.a8a1e723.jpg": "/would-you-rather/static/media/sara.a8a1e723.jpg",
     "static/media/tyler.e6a9ee54.jpg": "/would-you-rather/static/media/tyler.e6a9ee54.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.c7f60b49.js",
     "static/css/2.b2214614.chunk.css",
-    "static/js/2.589bdb8b.chunk.js",
-    "static/css/main.19bfbbe0.chunk.css",
-    "static/js/main.0fb8261c.chunk.js"
+    "static/js/2.7fce99c0.chunk.js",
+    "static/css/main.6ba05c6c.chunk.css",
+    "static/js/main.0045aeeb.chunk.js"
   ]
 }

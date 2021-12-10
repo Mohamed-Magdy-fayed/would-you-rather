@@ -23,7 +23,6 @@ const New = () => {
             optionTwoText,
             author: authedUser.user.key
         }
-        console.log(data);
         dispatch(handleAddQuestion(data))
         navigate('/')
     }
