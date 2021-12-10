@@ -479,6 +479,10 @@ select {
   padding-bottom: 3rem;
 }
 
+.cards-container > * {
+  list-style: none;
+}
+
 .card {
   border: 3px solid hsl(var(--clr-light));
   flex-direction: column;
