@@ -484,6 +484,7 @@ select {
 }
 
 .card {
+  width: min(100%, 40rem);
   border: 3px solid hsl(var(--clr-light));
   flex-direction: column;
   border-radius: 1rem;
