@@ -1,5 +1,5 @@
 import { ANSWER_QUESTION } from "../actions/questions";
-import { GET_USERS } from "../actions/users";
+import { ADD_USER, GET_USERS } from "../actions/users";
 
 export const users = (state = [], action) => {
     switch (action.type) {
@@ -15,6 +15,11 @@ export const users = (state = [], action) => {
                         [action.qid]: action.answer
                     }
                 }
+            }
+        case ADD_USER:
+            return {
+                ...state,
+                [action.user.key]: action.user,
             }
         default:
             return state

@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { handleSignIn } from "../actions/signin"
 import { arraying } from "../_DATA"
 import { useNavigate } from "react-router"
+import SignUp from "./SignUp"
 
 const Signin = () => {
 
@@ -56,7 +57,9 @@ const Signin = () => {
                     }}>
                     Sign In
                 </button>
+                
             </div>
+            <SignUp />
         </div>
     )
 }

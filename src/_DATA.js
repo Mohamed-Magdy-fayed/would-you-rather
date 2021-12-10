@@ -17,7 +17,8 @@ let users = {
       "am8ehyc8byjqgar0jgpub9": 'optionTwo',
       "loxhs1bqm25b708cmbf3g": 'optionTwo'
     },
-    questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
+    questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9'],
+    password: '1234',
   },
   tylermcginnis: {
     key: 'tylermcginnis',
@@ -29,6 +30,7 @@ let users = {
       "xj352vofupe1dqz9emx13r": 'optionTwo',
     },
     questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
+    password: '1234',
   },
   johndoe: {
     key: 'johndoe',
@@ -41,6 +43,7 @@ let users = {
       "6ni6ok3ym7mf1p33lnez": 'optionTwo'
     },
     questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
+    password: '1234',
   }
 }
 
@@ -132,6 +135,31 @@ function generateUID() {
 export function _getUsers() {
   return new Promise((res, rej) => {
     setTimeout(() => res({ ...users }), 1000)
+  })
+}
+
+const formatUser = ({ url, username, password }) => {
+  return {
+    key: username.toLowerCase().replace(/\s/g, ''),
+    text: username,
+    value: username,
+    image: { avatar: true, src: url },
+    answers: {},
+    questions: [],
+    password,
+  }
+}
+
+export function _addUser(user) {
+  return new Promise((res, rej) => {
+    const formattedUser = formatUser(user)
+    setTimeout(() => {
+      users = {
+        ...users,
+        [formattedUser.key]: formattedUser,
+      }
+      res(formattedUser)
+    }, 1000)
   })
 }
 
