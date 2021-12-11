@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, Image, Label } from 'semantic-ui-react'
+import { Button, Image, Label, Loader } from 'semantic-ui-react'
 import { handleAddUser } from '../actions/users'
 import profile from '../assets/profile.png'
 import PasswordChecklist from 'react-password-checklist'
 import { useNavigate } from 'react-router-dom'
+import Loading from './Loading'
 
 const SignUp = () => {
     const [url, seturl] = useState(null)
     const [username, setusername] = useState('')
     const [password, setpassword] = useState('')
     const [isHidden, setisHidden] = useState(false)
+    const [processing, setprocessing] = useState(false)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -27,6 +29,7 @@ const SignUp = () => {
             alert('Password should be 4 characters long!')
             return
         }
+        setprocessing(true)
         const user = {
             url,
             username,
@@ -36,9 +39,11 @@ const SignUp = () => {
             .then(() => {
                 setTimeout(() => {
                     navigate('/signin')
+                    setprocessing(false)
                 }, 300);
             })
     }
+
     return (
         <div className='flex col text-white'>
             <Button
@@ -113,9 +118,10 @@ const SignUp = () => {
                     </Label>
                 </div>
                 <button
+                    disabled={processing}
                     type='submit'
                     className='button bg-trans text-accent'>
-                    Sign Up
+                    {processing ? <Loader active inverted size='small' /> : 'Sign Up'}
                 </button>
             </form>
         </div>

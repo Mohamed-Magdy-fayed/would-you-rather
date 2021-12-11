@@ -104,6 +104,9 @@ select {
 /* ------------------- */
 
 /* general */
+.relative {
+  position: relative;
+}
 
 .flex {
   display: flex;
@@ -316,6 +319,7 @@ select {
 
 .loading {
   margin-top: 10rem;
+  text-align: center;
 }
 
 .signin {
@@ -572,7 +576,20 @@ select {
 }
 
 .button {
+  position: relative;
   max-width: 50vw;
+}
+
+.button:disabled {
+  border-color: hsl(var(--clr-light) / 0.5);
+  color: hsl(var(--clr-light) / 0.5);
+}
+
+.button:disabled:hover {
+  border-color: hsl(var(--clr-light) / 0.5);
+  color: hsl(var(--clr-light) / 0.5);
+  background-color: transparent;
+  cursor: initial;
 }
 
 .button:hover {

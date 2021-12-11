@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
-import { Button, Form, Icon, Image, Message, Progress } from 'semantic-ui-react'
+import { Button, Form, Icon, Image, Loader, Message, Progress } from 'semantic-ui-react'
 import { handleAnswerQuestion } from '../actions/questions'
 
 const Poll = ({ viewed, poll }) => {
@@ -14,6 +14,7 @@ const Poll = ({ viewed, poll }) => {
 
     const [answered, setanswered] = useState(false)
     const [answer, setanswer] = useState('')
+    const [processing, setprocessing] = useState(false)
 
     useEffect(() => {
         if (optionOne.votes.includes(authedUser.key)
@@ -39,15 +40,17 @@ const Poll = ({ viewed, poll }) => {
             alert('Please choose an answer!')
             return
         }
+        setprocessing(true)
         const question = {
             authedUser: authedUser.key,
             qid: id,
             answer,
         }
         dispatch(handleAnswerQuestion(question))
-        .then(() => {
-            setanswered(true)
-        })
+            .then(() => {
+                setanswered(true)
+                setprocessing(false)
+            })
     }
 
     const handleBack = (e) => {
@@ -123,31 +126,46 @@ const Poll = ({ viewed, poll }) => {
                             onSubmit={(e) => handleSubmit(e)}
                             className='flow form'
                         >
-                            <p>Would You Rather?</p>
-                            <div className='flex'>
-                                <input
-                                    type='radio'
-                                    id='optionOne'
-                                    name='options'
-                                    value={poll.optionOne.text}
-                                    onChange={(e) => setanswer(e.target.id)} />
-                                <p className='ff-sans-cond fs-400'>{poll.optionOne.text}</p>
-                            </div>
-                            <div className='flex'>
-                                <input
-                                    type='radio'
-                                    id='optionTwo'
-                                    name='options'
-                                    value={poll.optionTwo.text}
-                                    onChange={(e) => setanswer(e.target.id)} />
-                                <p className='ff-sans-cond fs-400'>{poll.optionTwo.text}</p>
-                            </div>
-                            <button
-                                type='submit'
-                                className='bg-trans text-accent button'
-                            >
-                                Submit
-                            </button>
+                            {processing ? (
+                                <div className='grid relative'>
+                                    <div>
+                                        <Loader active size='massive' />
+                                    </div>
+                                    <span className='fs-500 ff-serif text-accent loading'>Loading Data...</span>
+                                </div>
+                            ) : (
+                                <>
+                                    <p>Would You Rather?</p>
+                                    <div className='flex'>
+                                        <input
+                                            type='radio'
+                                            id='optionOne'
+                                            name='options'
+                                            value={poll.optionOne.text}
+                                            onChange={(e) => setanswer(e.target.id)} />
+                                        <label
+                                            className='ff-sans-cond fs-400'
+                                            htmlFor='optionOne'>{poll.optionOne.text}</label>
+                                    </div>
+                                    <div className='flex'>
+                                        <input
+                                            type='radio'
+                                            id='optionTwo'
+                                            name='options'
+                                            value={poll.optionTwo.text}
+                                            onChange={(e) => setanswer(e.target.id)} />
+                                        <label
+                                            className='ff-sans-cond fs-400'
+                                            htmlFor='optionTwo'>{poll.optionTwo.text}</label>
+                                    </div>
+                                    <button
+                                        type='submit'
+                                        className='bg-trans text-accent button'
+                                    >
+                                        Submit
+                                    </button>
+                                </>
+                            )}
                         </form>
                     )}
                 </div>
