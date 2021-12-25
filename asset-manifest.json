@@ -1,29 +1,19 @@
 {
   "files": {
-    "main.css": "/would-you-rather/static/css/main.454b3f55.chunk.css",
-    "main.js": "/would-you-rather/static/js/main.4f02688f.chunk.js",
-    "main.js.map": "/would-you-rather/static/js/main.4f02688f.chunk.js.map",
-    "runtime-main.js": "/would-you-rather/static/js/runtime-main.c7f60b49.js",
-    "runtime-main.js.map": "/would-you-rather/static/js/runtime-main.c7f60b49.js.map",
-    "static/css/2.b2214614.chunk.css": "/would-you-rather/static/css/2.b2214614.chunk.css",
-    "static/js/2.0a3cfa7d.chunk.js": "/would-you-rather/static/js/2.0a3cfa7d.chunk.js",
-    "static/js/2.0a3cfa7d.chunk.js.map": "/would-you-rather/static/js/2.0a3cfa7d.chunk.js.map",
+    "main.css": "/would-you-rather/static/css/main.99b48783.css",
+    "main.js": "/would-you-rather/static/js/main.577a76ce.js",
+    "static/media/sara.jpg": "/would-you-rather/static/media/sara.a8a1e723243f414be3fd.jpg",
+    "static/media/john.jpg": "/would-you-rather/static/media/john.103fc5ba9fb0947ef647.jpg",
+    "static/media/tyler.jpg": "/would-you-rather/static/media/tyler.e6a9ee54cd2f9b8ab481.jpg",
+    "static/media/profile.png": "/would-you-rather/static/media/profile.9f4aa540d8875de5940d.png",
     "index.html": "/would-you-rather/index.html",
-    "static/css/2.b2214614.chunk.css.map": "/would-you-rather/static/css/2.b2214614.chunk.css.map",
-    "static/css/main.454b3f55.chunk.css.map": "/would-you-rather/static/css/main.454b3f55.chunk.css.map",
-    "static/js/2.0a3cfa7d.chunk.js.LICENSE.txt": "/would-you-rather/static/js/2.0a3cfa7d.chunk.js.LICENSE.txt",
-    "static/media/semantic.min.css": "/would-you-rather/static/media/outline-icons.ddae9b1b.woff",
-    "static/media/App.css": "/would-you-rather/static/media/icon-hamburger.5273efa7.svg",
-    "static/media/john.103fc5ba.jpg": "/would-you-rather/static/media/john.103fc5ba.jpg",
-    "static/media/profile.9f4aa540.png": "/would-you-rather/static/media/profile.9f4aa540.png",
-    "static/media/sara.a8a1e723.jpg": "/would-you-rather/static/media/sara.a8a1e723.jpg",
-    "static/media/tyler.e6a9ee54.jpg": "/would-you-rather/static/media/tyler.e6a9ee54.jpg"
+    "static/media/icon-close.svg": "/would-you-rather/static/media/icon-close.d47fda63cbd8b3fedbbc.svg",
+    "static/media/icon-hamburger.svg": "/would-you-rather/static/media/icon-hamburger.5273efa7c50e96ef3e51.svg",
+    "main.99b48783.css.map": "/would-you-rather/static/css/main.99b48783.css.map",
+    "main.577a76ce.js.map": "/would-you-rather/static/js/main.577a76ce.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.c7f60b49.js",
-    "static/css/2.b2214614.chunk.css",
-    "static/js/2.0a3cfa7d.chunk.js",
-    "static/css/main.454b3f55.chunk.css",
-    "static/js/main.4f02688f.chunk.js"
+    "static/css/main.99b48783.css",
+    "static/js/main.577a76ce.js"
   ]
 }
