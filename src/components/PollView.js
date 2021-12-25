@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router'
 import { Button, Icon, Message } from 'semantic-ui-react'
+import { useAuth } from '..'
 import { useNavigateToHome } from '../_DATA'
 import Nav from './Nav'
 import Poll from './Poll'
@@ -9,9 +10,9 @@ import Poll from './Poll'
 const PollView = () => {
 
     const navigate = useNavigate()
-    const authedUser = useSelector(store => store.signIn)
+    const { currentUser } = useAuth()
 
-    useNavigateToHome(authedUser, navigate)
+    useNavigateToHome(currentUser, navigate)
 
     const { id } = useParams()
 
@@ -33,13 +34,13 @@ const PollView = () => {
                     <Button
                         labelPosition='right'
                         label='Go back'
-                        icon floated='left'
-                        
+                        icon 
+                        floated='left'
                         compact
                         circular
                         onClick={(e) => handleBack(e)}
                     >
-                        <Icon name='left arrow' />
+                        hifasd<Icon name='left arrow' />
                     </Button>
                 </Message>
             </div>

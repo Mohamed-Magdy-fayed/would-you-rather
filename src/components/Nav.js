@@ -2,19 +2,23 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
+import { useAuth } from '..'
 import { signOut } from '../actions/signin'
 
 const Nav = () => {
 
     const user = useSelector((store) => store.signIn.user)
+    const { logout } = useAuth()
 
     const [isExpanded, setisExpanded] = useState(false)
     const [isVisible, setisVisible] = useState(false)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    
 
     const handleSignout = () => {
+        logout()
         dispatch(signOut())
         navigate('/signin')
     }
@@ -36,7 +40,7 @@ const Nav = () => {
                 className='fs-300 ff-serif text-white user-name'
             >Welcome <span
                 className='ff-serif fs-400 text-accent'
-            >{user && user.text}
+            >{user && user.value}
                 </span>
                 !</p>
             <button

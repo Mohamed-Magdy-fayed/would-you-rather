@@ -1,10 +1,11 @@
+import { getQuestions, saveQuestion, saveQuestionAnswer } from "../firebase/firestore"
 import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from "../_DATA"
 
 export const GET_QUESTIONS = 'GET_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
 
-const getQuestions = (questions) => {
+const addQsToState = (questions) => {
     return {
         type: GET_QUESTIONS,
         questions,
@@ -13,8 +14,8 @@ const getQuestions = (questions) => {
 
 export const handleGetQuestions = () => {
     return (dispatch) => {
-        return _getQuestions()
-            .then((questions) => dispatch(getQuestions(questions)))
+        return getQuestions()
+            .then((questions) => dispatch(addQsToState(questions)))
     }
 }
 
@@ -27,7 +28,7 @@ const addQuestion = (question) => {
 
 export const handleAddQuestion = (data) => {
     return (dispatch) => {
-        return _saveQuestion(data)
+        return saveQuestion(data)
         .then(question => dispatch(addQuestion(question)))
     }
 }
@@ -35,7 +36,7 @@ export const handleAddQuestion = (data) => {
 const answerQuestion = (question) => {
     return {
         type: ANSWER_QUESTION,
-        authedUser: question.authedUser,
+        uid: question.uid,
         qid: question.qid,
         answer: question.answer,
     }
@@ -43,7 +44,7 @@ const answerQuestion = (question) => {
 
 export const handleAnswerQuestion = (question) => {
     return (dispatch) => {
-        return _saveQuestionAnswer(question)
+        return saveQuestionAnswer(question)
         .then(() => dispatch(answerQuestion(question)))
     }
 }

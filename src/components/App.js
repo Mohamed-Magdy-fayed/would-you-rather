@@ -5,30 +5,35 @@ import New from './New';
 import Leaderboard from './Leaderboard';
 import { Fragment, useEffect, useState } from 'react';
 import { handleGetUsers } from '../actions/users';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { handleGetQuestions } from '../actions/questions';
 import { Loader } from 'semantic-ui-react';
-import { useNavigate, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
 import PollView from './PollView';
 import SignUp from './SignUp';
-
+import { useAuth } from '..';
+import { signIn } from '../actions/signin'
+import { getAuthedUser } from '../firebase/firestore';
 const App = () => {
+
+  const dispatch = useDispatch()
+  const { currentUser } = useAuth()
 
   const [loading, setloading] = useState(true)
 
-  const authedUser = useSelector(store => store.signIn)
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
+  currentUser && getAuthedUser(currentUser.uid)
+    .then((user) => {
+      const id = {
+        id: currentUser.uid,
+        ...user,
+      }
+      dispatch(signIn(id))
+    })
   useEffect(() => {
     dispatch(handleGetUsers())
       .then(() => dispatch(handleGetQuestions()))
       .then(() => setloading(false))
-    if (!authedUser) {
-      navigate('/signin')
-    }
-  }, [dispatch])
+  }, [])
 
   return (
     <Fragment>

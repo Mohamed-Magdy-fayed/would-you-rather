@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Loader } from 'semantic-ui-react'
+import { useAuth } from '..'
 import { handleAddQuestion } from '../actions/questions'
 import { useNavigateToHome } from '../_DATA'
 import Nav from './Nav'
@@ -12,20 +13,21 @@ const New = () => {
     const [optionTwoText, setoptionTwo] = useState('')
     const [processing, setprocessing] = useState(false)
 
-    const authedUser = useSelector(store => store.signIn)
     const navigate = useNavigate()
+    const { currentUser } = useAuth()
+    const user = useSelector(store => store.signIn.user)
 
-    useNavigateToHome(authedUser, navigate)
+    useNavigateToHome(currentUser, navigate)
 
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setprocessing(true)
-        const data = {
+        const data = currentUser && {
             optionOneText,
             optionTwoText,
-            author: authedUser.user.key
+            author: currentUser && currentUser.uid
         }
         dispatch(handleAddQuestion(data))
         .then(() => {
@@ -35,11 +37,11 @@ const New = () => {
     }
 
     return (
-        <div className='fill new'>
+        <div className='fill new flex col'>
             <Nav />
-            <div className="card text-white flex">
+            <div className="card text-white flex bg-dark">
                 <div className="card-header">
-                    <p>Posting as {authedUser.user.text}</p>
+                    <p>Posting as {user && user.text}</p>
                 </div>
                 <form
                     className='flow form'

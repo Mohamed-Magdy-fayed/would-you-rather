@@ -135,6 +135,7 @@ function generateUID() {
 export function _getUsers() {
   return new Promise((res, rej) => {
     setTimeout(() => res({ ...users }), 1000)
+    
   })
 }
 
@@ -250,7 +251,7 @@ export const arraying = (object) => {
 
 export const useNavigateToHome = (authedUser ,navigate) => {
   useEffect(() => {
-    if (!authedUser.logged) {
+    if (authedUser === null) {
       navigate('/signin')
       setTimeout(() => alert('Please login to view the app'), 100)
     }

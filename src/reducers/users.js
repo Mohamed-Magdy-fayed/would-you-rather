@@ -16,10 +16,10 @@ export const users = (state = [], action) => {
         case ANSWER_QUESTION:
             return {
                 ...state,
-                [action.authedUser]: {
-                    ...state[action.authedUser],
+                [action.uid]: {
+                    ...state[action.uid],
                     answers: {
-                        ...state[action.authedUser].answers,
+                        ...state[action.uid].answers,
                         [action.qid]: action.answer
                     }
                 }
@@ -27,7 +27,7 @@ export const users = (state = [], action) => {
         case ADD_USER:
             return {
                 ...state,
-                [action.user.key]: action.user,
+                [action.user.id]: action.user,
             }
         default:
             return state

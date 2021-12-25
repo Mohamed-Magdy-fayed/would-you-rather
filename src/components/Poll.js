@@ -1,9 +1,12 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
-import { Button, Form, Icon, Image, Loader, Message, Progress } from 'semantic-ui-react'
+import { Loader, Message, Progress } from 'semantic-ui-react'
+import { useAuth } from '..'
 import { handleAnswerQuestion } from '../actions/questions'
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 const Poll = ({ viewed, poll }) => {
 
@@ -16,19 +19,21 @@ const Poll = ({ viewed, poll }) => {
     const [answer, setanswer] = useState('')
     const [processing, setprocessing] = useState(false)
 
+    
+    
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { currentUser } = useAuth()
+    const user = users[author]
+
     useEffect(() => {
-        if (optionOne.votes.includes(authedUser.key)
-            || optionTwo.votes.includes(authedUser.key)) {
+        if (optionOne.votes.includes(currentUser && currentUser.uid)
+            || optionTwo.votes.includes(currentUser && currentUser.uid)) {
             setanswered(true)
         } else {
             setanswered(false)
         }
-    }, [])
-
-
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const user = users[author]
+    }, [currentUser])
 
     const optionOneVotes = optionOne.votes.length
     const optionTwoVotes = optionTwo.votes.length
@@ -42,7 +47,7 @@ const Poll = ({ viewed, poll }) => {
         }
         setprocessing(true)
         const question = {
-            authedUser: authedUser.key,
+            uid: currentUser.uid,
             qid: id,
             answer,
         }
@@ -59,23 +64,26 @@ const Poll = ({ viewed, poll }) => {
     }
 
     return (
-        <div className='flex text-white card ff-serif'>
+        <div className='card flex text-white card ff-serif bg-dark'>
             <div className='card-header flex'>
-                <p className='fs-400'>{user.text} asked:</p>
+                <div className='header-name'>
+                    <p className='trnuc fs-400'>{user && user.text} asked:</p>
+                </div>
                 {viewed && (
                     <Button
+                        className='button'
                         icon floated='right'
                         size='mini'
                         compact
+                        labelPosition='left'
                         circular
                         onClick={(e) => handleBack(e)}
                     >
-                        <Icon name='left arrow' />
+                        <BsFillArrowLeftCircleFill></BsFillArrowLeftCircleFill>
                     </Button>
                 )}
             </div>
             <div className='card-content flex'>
-                <div className='card-img'><Image src={user.image.src} alt='user avatar' size='massive' avatar wrapped /></div>
                 <div className="card-info">
                     {!viewed && (
                         <div>
@@ -89,7 +97,7 @@ const Poll = ({ viewed, poll }) => {
                     {viewed && answered && (
                         <div className='flex col'>
                             <p>Would You Rather?</p>
-                            <div className={poll.optionOne.votes.includes(authedUser.key)
+                            <div className={poll.optionOne.votes.includes(authedUser && authedUser.id)
                                 ? 'selected-answer flex col card-answer'
                                 : 'not-selected-answer flex col card-answer'
                             }>
@@ -104,7 +112,7 @@ const Poll = ({ viewed, poll }) => {
                                 </div>
                                 <p>{optionOneVotes} out of {total} votes</p>
                             </div>
-                            <div className={poll.optionTwo.votes.includes(authedUser.key)
+                            <div className={poll.optionTwo.votes.includes(authedUser && authedUser.id)
                                 ? 'selected-answer flex col card-answer'
                                 : 'not-selected-answer flex col card-answer'
                             }>

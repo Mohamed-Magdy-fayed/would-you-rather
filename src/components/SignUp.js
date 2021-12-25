@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, Image, Label, Loader } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 import { handleAddUser } from '../actions/users'
 import profile from '../assets/profile.png'
 import PasswordChecklist from 'react-password-checklist'
 import { useNavigate } from 'react-router-dom'
 import Loading from './Loading'
+import { useAuth } from '..'
+import { upload } from '../firebase/upload'
+import { Alert, Button, Container, Form } from 'react-bootstrap'
+import { BsArrowLeftCircle } from 'react-icons/bs'
 
 const SignUp = () => {
     const [url, seturl] = useState(null)
+    const [name, setname] = useState('')
     const [username, setusername] = useState('')
     const [password, setpassword] = useState('')
     const [isHidden, setisHidden] = useState(false)
@@ -16,6 +21,7 @@ const SignUp = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { signup } = useAuth()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -31,11 +37,12 @@ const SignUp = () => {
         }
         setprocessing(true)
         const user = {
-            url,
+            name,
             username,
             password,
         }
-        dispatch(handleAddUser(user))
+
+        dispatch(handleAddUser(user, signup))
             .then(() => {
                 setTimeout(() => {
                     navigate('/signin')
@@ -45,44 +52,49 @@ const SignUp = () => {
     }
 
     return (
-        <div className='flex col text-white'>
-            <Button
-                label='Back to Login'
-                color='facebook'
-                icon='left arrow'
-                size='small'
-                onClick={() => navigate('/signin')}
-            />
-            <form
-                className='form flex'
+        <Container>
+            <Container className='p-0'>
+                <Button
+                    size='sm'
+                    variant='secondary'
+                    className='mb-3'
+                    onClick={() => navigate('/signin')}
+                >Back
+                    <BsArrowLeftCircle
+                        className='m-2'
+                    />
+                </Button>
+            </Container>
+            <Form
+                className='d-grid gap-2'
                 onSubmit={(e) => handleSubmit(e)}
             >
-                <Image
-                    src={url ? url : profile}
-                    avatar
-                    size='small'
+                <Form.Label
+                    htmlFor='name'>Name</Form.Label>
+                <Form.Control
+                    className='fs-400 ff-sans-cond'
+                    id='name'
+                    name='name'
+                    value={name}
+                    type='text'
+                    placeholder='Your Name'
+                    onChange={(e) => setname(e.target.value)}
                 />
-                <input
-                    type='file'
-                    onChange={(e) => seturl(window.URL.createObjectURL(e.target.files[0]))}
-                >
-
-                </input>
-                <label
-                    htmlFor='user-name'>User Name</label>
-                <input
-                    className='form-input bg-dark text-white fs-400 ff-sans-cond'
+                <Form.Label
+                    htmlFor='user-name'>Email</Form.Label>
+                <Form.Control
+                    className='fs-400 ff-sans-cond'
                     id='user-name'
                     name='user-name'
                     value={username}
                     type='text'
-                    placeholder='User Name'
+                    placeholder='email'
                     onChange={(e) => setusername(e.target.value)}
                 />
-                <label
-                    htmlFor='password'>Password</label>
-                <input
-                    className='form-input bg-dark text-white fs-400 ff-sans-cond'
+                <Form.Label
+                    htmlFor='password'>Password</Form.Label>
+                <Form.Control
+                    className='fs-400 ff-sans-cond'
                     id='password'
                     name='password'
                     value={password}
@@ -98,33 +110,30 @@ const SignUp = () => {
                         setTimeout(() => setisHidden(false), 5000)
                     }}
                 />
+                <Alert
+                    variant='danger'
+                    className={!isHidden ? 'hide' : ''}>
+                    Please enter numbers only!
+                </Alert>
                 <PasswordChecklist
                     className='text-accent fs-200 ff-sans-cond'
                     rules={['minLength']}
                     value={password}
-                    minLength={4}
+                    minLength={6}
                     iconSize={10}
                     messages={{
-                        minLength: 'Password should be 4 characters long!'
+                        minLength: 'Password should be 6 characters long!'
                     }}
                 />
-                <div className={!isHidden ? 'hide' : ''}>
-                    <Label
-                        basic
-                        color='red'
-                        pointing
-                    >
-                        Please enter numbers only!
-                    </Label>
-                </div>
-                <button
+                <Button
+                    variant='primary'
                     disabled={processing}
                     type='submit'
-                    className='button bg-trans text-accent'>
+                >
                     {processing ? <Loader active inverted size='small' /> : 'Sign Up'}
-                </button>
-            </form>
-        </div>
+                </Button>
+            </Form>
+        </Container>
     )
 }
 

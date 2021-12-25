@@ -1,20 +1,23 @@
+import { saveUser } from "../firebase/firestore"
 import { _login } from "../_DATA"
 
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_OUT = 'SIGN_OUT'
 
-const signIn = (user) => {
+export const signIn = (user) => {
     return {
         type: SIGN_IN,
-        user,
+        user: user,
         logged: true,
     }
 }
 
-export const handleSignIn = (user) => {
+export const handleSignIn = (user, login, users) => {
     return (dispatch) => {
-        return _login(user)
-        .then(() => dispatch(signIn(user)))
+        return login(user.username, user.password)
+        .then((e) => {
+            dispatch(signIn(users[e.user.uid]))
+        }).catch(e => console.log(e))
     }
 }
 

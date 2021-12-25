@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
+import { useAuth } from '..'
 import { useNavigateToHome } from '../_DATA'
 import Nav from './Nav'
 import Poll from './Poll'
@@ -11,30 +12,40 @@ const Home = () => {
     const authedUser = useSelector(store => store.signIn)
 
     const [answered, setanswered] = useState(false)
-    
+
     const navigate = useNavigate()
+    const { currentUser } = useAuth()
 
     let allAnswered = []
     let allNotAnswered = []
 
     Object.keys(questions).forEach(q => {
-        if (questions[q].optionTwo.votes.includes(authedUser.user.key)) {
-            allAnswered.push(questions[q])
-        } else if (questions[q].optionOne.votes.includes(authedUser.user.key)) {
-            allAnswered.push(questions[q])
+        if (questions[q].optionTwo.votes.includes(currentUser && currentUser.uid)) {
+            allAnswered.push({
+                id: q,
+                ...questions[q],
+            })
+        } else if (questions[q].optionOne.votes.includes(currentUser && currentUser.uid)) {
+            allAnswered.push({
+                id: q,
+                ...questions[q],
+            })
         } else {
-            allNotAnswered.push(questions[q])
+            allNotAnswered.push({
+                id: q,
+                ...questions[q],
+            })
         }
     })
 
-    allAnswered.sort((a,b) => {
+    allAnswered.sort((a, b) => {
         return b.timestamp - a.timestamp
     })
-    allNotAnswered.sort((a,b) => {
+    allNotAnswered.sort((a, b) => {
         return b.timestamp - a.timestamp
     })
 
-    useNavigateToHome(authedUser, navigate)
+    useNavigateToHome(currentUser, navigate)
 
     return (
         <div className='fill bg-dark'>
